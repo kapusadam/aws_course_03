@@ -8,9 +8,7 @@ exports.handler = async (event) => {
         if (record.messageAttributes) {
             const attributes = record.messageAttributes;
             console.log("Message Attributes: ", attributes);
-            if (attributes.test && attributes.test.stringValue === '2') {
-                console.log("Attribute 'test' with value '2' received.");
-            }
+          
         }
     });
 
