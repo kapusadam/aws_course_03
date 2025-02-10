@@ -11,7 +11,7 @@
   "dependencies": [],
   "event_sources": [{
     "resource_type": "sns_topic_trigger",
-    "target_topic ": "lambda_topic"
+    "target_topic": "lambda_topic"
   }],
   "env_variables": {},
   "publish_version": true,
