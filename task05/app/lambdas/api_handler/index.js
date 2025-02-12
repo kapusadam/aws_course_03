@@ -9,34 +9,25 @@ AWS.config.update({ region: 'us-east-1' });
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
-    console.log('event');
-    console.log(event);
-    
     console.log("Received event:", JSON.stringify(event));
 
-    if (!event.body) {
-        return {
-            statusCode: 400,
-            body: JSON.stringify({ error: 'No event body!' })
-        };
-    }
-
     let data;
-    try {
-        // Check if event.body is already an object or a string
-        if (typeof event.body === 'string') {
-            data = JSON.parse(event.body);
-        } else {
-            // If event.body is already an object, use it directly
-            data = event.body;
+
+    // Check if invoked via API Gateway with a body
+    if (event.body) {
+        try {
+            // Check if the body is a string and needs parsing
+            data = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
+        } catch (error) {
+            console.error('Error parsing JSON from event body:', error);
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ error: 'Invalid JSON format in the body' })
+            };
         }
-    } catch (error) {
-        console.error('Error parsing event body:', error);
-        // Handle error parsing JSON
-        return {
-            statusCode: 400,
-            body: JSON.stringify({ error: 'Error parsing JSON body' })
-        };
+    } else {
+        // Assume it's a direct invocation if no body is present
+        data = event;
     }
 
     const eventRecord = {
@@ -52,7 +43,7 @@ exports.handler = async (event) => {
     // Insert the event into the DynamoDB table
     try {
         await dynamodb.put(eventRecord).promise();
-        // Generate the response
+        // Generate the response for successful data insertion
         const response = {
             statusCode: 201,
             headers: { 'Content-Type': 'application/json' },
@@ -60,10 +51,10 @@ exports.handler = async (event) => {
         };
         return response;
     } catch (error) {
-        console.error('Error inserting data into DynamoDB', error);
+        console.error('Error inserting data into DynamoDB:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: 'An error occurred inserting data into DynamoDB' })
+            body: JSON.stringify({ error: 'An error occurred while inserting data into DynamoDB' })
         };
     }
 };
