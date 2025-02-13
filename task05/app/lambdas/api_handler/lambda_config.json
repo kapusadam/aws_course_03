@@ -17,11 +17,12 @@
     }
   ],
   "env_variables": {
-		"Events": "${demo_table}"
+		"demo_table_name": "${demo_table}"
 	  },
   "publish_version": true,
   "alias": "${lambdas_alias_name}",
   "url_config": {},
   "ephemeral_storage": 512,
+  "logs_expiration": "${logs_expiration}",
   "tags": {}
 }
