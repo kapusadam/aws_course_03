@@ -52,9 +52,11 @@ exports.handler = async (event) => {
         console.error('Error inserting data into DynamoDB:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: 'An error occurred while inserting data into DynamoDB ' + 
-                error.toISOString()
-             })
+            body: JSON.stringify({
+                error: 'An error occurred while inserting data into DynamoDB',
+                message: error.message,
+                stack: error.stack // Optionally include the stack trace for detailed debugging
+            })
         };
     }
 };
