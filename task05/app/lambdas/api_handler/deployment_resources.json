@@ -1,6 +1,6 @@
 {
   "api_handler-role": {
-    "predefined_policies": [],
+    "predefined_policies": ["AmazonDynamoDBFullAccess", "AWSLambdaDynamoDBExecutionRole"],
     "principal_service": "lambda",
     "custom_policies": [
       "lambda-basic-execution"
