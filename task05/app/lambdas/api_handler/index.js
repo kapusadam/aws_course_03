@@ -13,10 +13,8 @@ exports.handler = async (event) => {
 
     let data;
 
-
     if (event.body) {
         try {
-
             data = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
         } catch (error) {
             console.error('Error parsing JSON from event body:', error);
@@ -30,7 +28,7 @@ exports.handler = async (event) => {
     }
 
     const eventRecord = {
-        TableName: "Events",
+        TableName: process.env.DEMO_TABLE, // Use the environment variable for the DynamoDB table name
         Item: {
             id: uuidv4(),
             principalId: data.principalId,
