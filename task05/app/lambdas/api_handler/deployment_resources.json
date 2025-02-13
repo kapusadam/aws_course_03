@@ -3,25 +3,7 @@
     "predefined_policies": [],
     "principal_service": "lambda",
     "custom_policies": [
-      "lambda-basic-execution",
-      {
-        "PolicyName": "DynamoDBStreamAccess",
-        "PolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Action": [
-                "dynamodb:GetRecords",
-                "dynamodb:GetShardIterator",
-                "dynamodb:DescribeStream",
-                "dynamodb:ListStreams"
-              ]
-
-            }
-          ]
-        }
-      }
+      "lambda-basic-execution"
     ],
     "resource_type": "iam_role",
     "tags": {}
