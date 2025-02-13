@@ -48,7 +48,7 @@
     "tags": {}
   },
   "Events": {
-    "${demo_table}": {
+
         "resource_type": "dynamodb_table",
         "hash_key_name": "id",
         "hash_key_type": "N",
@@ -62,6 +62,6 @@
           }
         ],
         "autoscaling": []
-        }
+        
   }
 }
