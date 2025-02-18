@@ -29,7 +29,7 @@ exports.handler = async (event) => {
     console.log(process.env.DEMO_TABLE);
     
     const eventRecord = {
-        TableName: process.env.DEMO_TABLE || 'Events', // Use the environment variable for the DynamoDB table name
+        TableName: process.env.DEMO_TABLE || 'demo-Events-test', // Use the environment variable for the DynamoDB table name
         Item: {
             id: uuidv4(),
             principalId: data.principalId,
